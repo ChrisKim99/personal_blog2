@@ -1,0 +1,35 @@
+
+
+.header {
+    margin:0;
+    padding:0;
+    position: fixed;
+    height: 60px;
+    width: 100%;
+    background: rgb(212, 212, 209);
+    
+    /* place the header under all other items */
+    z-index: -1;
+}
+
+.header p {
+    font-weight: 600;
+    font-size: 30px;
+    padding-top: 10px;
+    padding-left: 360px;
+}
+@media screen and (max-width: 1150px){
+
+    .header {
+        margin:0;
+        padding:0;
+        position: fixed;
+        height: 160px;
+        width: 100%;
+        background: rgb(212, 212, 209);
+        
+        /* place the header under all other items */
+        z-index: -1;
+    }
+
+}

@@ -1,0 +1,204 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <link rel="stylesheet" href="static/styles/sidebar.css?{% now 'U' %}"/>
+    <link rel="stylesheet" href="static/styles/side_content.css?{% now 'U' %}"/>
+    <link rel="stylesheet" href="static/styles/header.css?{% now 'U' %}"/>
+    <link rel="stylesheet" href="static/styles/content.css?{% now 'U' %}"/>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    
+    {% block title %}
+    <title>Chris Kim Blog</title>
+    {% endblock %}
+    
+</head>
+
+
+<body style="background: rgb(227, 231, 231);">
+    
+    <div class="header">
+        
+    </div>
+  
+        <!--------------------- 사이트 메뉴 바 ------------------------->
+    
+    <nav class="sidebar">
+        
+        <input type="checkbox" id="check">
+        <label for="check" class="check-btn">
+            <i class="fas fa-bars"></i>
+        </label>
+
+        <div class="name"><a href="template/home.html">Chris Kim</a></div>
+        
+            <ul>
+                
+                <li><a href="">About</a></li>
+                <li><a href="" class="data-structure-btn">Data Structure 
+                    <span class="fas fa-caret-down first"></span>
+                    <!-- 밑을 향하는 아이콘 -->
+                </a>
+                    <ul class="data-structure-show">
+                        
+                        {% for data_structure in data_structures %}
+
+                            <li><a href="data_structure?title_name={{ data_structure.title|urlencode }}">{{ data_structure.title }}</a></li>
+
+                        {% empty %}
+                            <li><a href=""> To be posted </a></li>
+                        {% endfor %}
+                        
+                    </ul>
+                </li>
+                <li><a href="" class="data-analytics-btn">Data Analytics
+                    <span class="fas fa-caret-down second"></span>
+                    <!-- 밑을 향하는 아이콘 -->
+                </a>
+                    <ul class="data-analytics-show">
+                        
+                        {% for data_analytic in data_analytics  %}
+
+                            <li><a href="data_analytic?title_name={{ data_analytic.title|urlencode }}">{{ data_analytic.title }}</a></li>
+
+                        {% empty %}
+                            <li><a href=""> To be posted </a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                <li><a href=" " class="books-btn">Books
+                    <span class="fas fa-caret-down third"></span>
+                    <!-- 밑을 향하는 아이콘 -->
+                </a>
+                    <ul class="books-show">
+                        
+                            {% for book in books %}
+
+                                <li><a href="book?title_name={{ book.title|urlencode }}">{{ book.title }}</a></li>
+
+                            {% empty %}
+                                <li><a href=""> To be posted </a></li>
+                            {% endfor %}
+                    </ul>
+                </li>
+                <li><a href="" class="track-of-mind-btn">Track of Mind
+                    <span class="fas fa-caret-down fourth"></span>
+                    <!-- 밑을 향하는 아이콘 -->
+                </a>
+                
+                    <ul class="track-of-mind-show">
+                        
+                            {% for track_of_mind in track_of_minds %}
+
+                                <li><a href="track_of_mind?title_name={{ track_of_mind.title|urlencode }}">{{ track_of_mind.title }}</a></li>
+
+                            {% empty %}
+                                <li><a href=""> To be posted </a></li>
+                            {% endfor %}
+                       
+                    </ul>
+                    
+                </li>
+                <li><a href=""> To be added </a></li>
+                
+            </ul>
+
+    </nav>
+            
+
+<!--------------------- 사이트 메뉴 바 자바스크립트 ------------------------->
+    <script>
+        $(document).ready(function(){
+            
+            $('.data-analytics-btn').click(function(e){
+                e.preventDefault();
+                $('nav ul .data-analytics-show').toggle();
+                $('nav ul .second').toggleClass("rotate");
+                
+            });
+
+            $('.data-structure-btn').click(function(e){
+                e.preventDefault();
+                $('nav ul .data-structure-show').toggle();
+                $('nav ul .first').toggleClass("rotate");
+            });
+
+            $('.books-btn').click(function(e){
+                e.preventDefault();
+                $('nav ul .books-show').toggle();
+                $('nav ul .third').toggleClass("rotate");
+            });
+
+            $('.track-of-mind-btn').click(function(e){
+                e.preventDefault();
+                $('nav ul .track-of-mind-show').toggle();
+                $('nav ul .fourth').toggleClass("rotate");
+            });
+            
+            $('nav ul li').click(function(e){
+                e.preventDefault
+                $(this).addClass('active').siblings().removeClass("active");
+                /*siblings().removeClass 를 함으로써 모든 자매는 제외 스타일링 제외*/
+            });
+        });
+    </script>
+
+    
+    <div class="flex-box">
+        
+        <div class="content">
+            {% block content %}
+
+                {% if item %}
+                
+
+            
+                    <h1 class="title"> {{ item.title }}</h1>
+                    
+                    <h2 class="date"> <i class="far fa-calendar-alt"></i> {{ item.date }} <i class="fas fa-user"></i> Chris Kim</h2>
+
+                    <p>{{ item.eng_desc }}</p>
+                    <p>{{ item.kor_desc }}</p>
+                    
+                
+                {% endif %}
+
+            {% endblock %}
+            
+        </div>
+        
+        
+        <div class="side-content">
+            
+            <h2>Recent Update</h2>
+            
+            <ul>
+                <li>
+                    {% for data in total_list %}
+                        <!-- -->
+                        {% for each in data %}
+                            {{each.date}}
+                        {% endfor %}
+                    {% endfor %}
+                    <a href="">post</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="footer">
+            <div class="icon">
+                <a href=""><i class="fab fa-instagram"></i></a>
+                <a href="https://www.linkedin.com/in/kim-chris-sooseok/"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/ChrisKim99"><i class="fab fa-github"></i></a>
+            </div>
+        </div>
+        
+    </div>  
+              
+</body>
+</html>

@@ -1,0 +1,123 @@
+*{
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/*---------------side bar--------------*/
+
+.sidebar /*nav 의 클래스*/{
+    position: fixed;
+    width: 250px;
+    height: 100%;
+    left: 0;
+    background: #252425;
+}
+
+.sidebar .text{
+    color: white;
+    font-size: 25px;
+    font-weight: 600;
+    line-height: 65px;
+    text-align: center;
+    /*-- place item in center --*/
+    background: #1e1e1e;
+    letter-spacing: 1px;
+    /*-- space between letters --*/
+}
+
+/*-- 메인 아이템 스타일--*/
+
+nav ul{
+    background: 1b1b1b;
+    height: 100%;
+    width: 100%;
+    /*-- nav 안 전체적으로 꽉 채울만큼*/
+    list-style: none;
+}
+
+nav ul li{
+    line-height: 60px;
+    /*-- 각 아이템을 띄여줌 --*/
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+nav ul li a{
+    position: relative;
+    /*-- 아래를 향하는 아이콘을 위한 포지션 설정--*/
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    padding-left: 30px;
+    font-weight: 500;
+    display: block;
+    width: 100%;
+
+    border-left: 3px solid transparent;
+    /* -- 각 아이템 옆에 투명한 선을 만듬 --*/
+}
+
+/*-- effect when placed cursor on --*/
+nav ul li a:hover{
+    color:cyan;
+    background: #1e1e1e;
+    border-left-color: cyan;
+    /* -- 각 아이템 옆에 투명한 선에 색을 더함--*/
+}
+
+nav ul ul{
+    position: static;
+
+    display: none;
+    /*-- 현재로서는 부가적인 아이템을 숨김 --*/
+}
+
+/*-- 부가적인 아이템을 시각화하는 자바스크립트--*/
+
+
+nav ul .feat-show.show{
+    display:block;
+}
+nav ul .serv-show.show1{
+    display:block;
+}
+
+/*-- 부가적인 아이템들을 위한 스타일링 --*/
+
+nav ul ul li{
+    line-height: 42px;
+    border-bottom: none;
+}
+
+nav ul ul li a{
+    font-size: 17px;
+    color: #e6e6e6;
+    padding-left: 60px;
+    /*-- 메인 아이템과 부가적인 아이템을 구별하기 위함 --*/
+}
+
+/*-- 밑을 향하는 아이콘을 위한 스타일--*/
+
+/*nav ul ul li a span 를 밑에 형식으로 바꿈으로 아이콘을 오른쪽 끝으로 이동 가능*/
+nav ul li a span{
+    position: absolute;
+    top: 50%;
+    right: 20px;
+
+    font-size: 22px;
+
+    transform: translaateY(-50%);
+    /*-- y 측에 병형을 주기 위한 스타일 --*/
+    transition: transform 0.4s;    
+    /*-- transform 변환 시간 간격 --*/
+}
+
+nav ul li a span.rotate{
+    transform: translateY(-50%) rotate(-180deg);
+    /*-- cursor 가 a element 에 위치할때 180도 로테이트 --*/
+}
+
+
+
