@@ -1,7 +1,5 @@
 from django.contrib import admin
-from .models import track_of_mind, book
-from .data_struc_models import data_structure_1
-from .data_analytic_models import data_analytic_1
+from .models import track_of_mind, book, data_analytic, data_structure
 
 # Register your models here.
 
@@ -15,6 +13,6 @@ admin.site.register(book)
 
 # ---------------- register for data related items-------------------
 
-admin.site.register(data_structure_1)
+admin.site.register(data_structure)
 
-admin.site.register(data_analytic_1)
+admin.site.register(data_analytic)

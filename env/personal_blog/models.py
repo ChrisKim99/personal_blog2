@@ -1,5 +1,5 @@
 from django.db import models
-
+from ckeditor.fields import RichTextField
 # Create your models here.
 
 
@@ -7,13 +7,21 @@ from django.db import models
 class track_of_mind(models.Model):
     title = models.CharField(max_length=100)
     date = models.DateField()
-    eng_desc = models.TextField()
-    kor_desc = models.TextField()
+    body = RichTextField(blank=True, null=True)
 
 class book(models.Model):
 
     title = models.CharField(max_length=100)
     date = models.DateField()
-    image = models.ImageField(upload_to = "books_pics")
-    eng_desc = models.TextField()
-    kor_desc = models.TextField()
+    body = RichTextField(blank=True, null=True)
+
+class data_structure(models.Model):
+    title = models.CharField(max_length=100)
+    date = models.DateField()
+    body = RichTextField(blank=True, null=True)
+
+
+class data_analytic(models.Model):
+    title = models.CharField(max_length=100)
+    date = models.DateField()
+    body = RichTextField(blank=True, null=True)
