@@ -148,12 +148,27 @@
         });
     </script>
 
-    
+    <!----------------------- Body of the page ---------------------->
     <div class="flex-box">
         
         <div class="content">
             {% block content %}
 
+                <!-- object_list return all blocks from database-->
+                {% for post in object_list %}
+
+                    <!-- This url refers to name from urls.py -->
+                    <!-- This a tag had to be placed in side bar-->
+                    <!-- I dont like this way-->
+                    <p> <a href="{% url 'book' post.pk %}"></a></p>
+                    <p> {{ post.title }} </p>
+                    <p> {{ post.author }} </p>
+                    <p> {{ post.author.email }} </p>
+                    <p> {{ post.date }} </p>
+                    <p> {{ post.body }} </p>
+
+                {% endfor %}
+                <!--
                 {% if item %}
                 
 
@@ -166,7 +181,7 @@
                     
                 
                 {% endif %}
-
+-->
             {% endblock %}
             
         </div>
@@ -188,6 +203,10 @@
                 </li>
             </ul>
         </div>
+
+
+
+        <!--------------------------Footer------------------------->
 
         <div class="footer">
             <div class="icon">
