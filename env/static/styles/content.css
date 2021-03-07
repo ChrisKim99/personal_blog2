@@ -1,10 +1,35 @@
 
 
+
+.post{
+    display: flex;
+    flex-wrap: nowrap;
+    padding-left: 1500px;
+    padding-top: 70px;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+.post .content-post{
+    background: white;
+    height: 50px;
+    width: 150px;
+    padding-bottom: 0;
+}
+
+.post a {
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+}
+
+
 .flex-box{
     display: flex;
     flex-wrap: wrap;
     padding-left: 395px;
-    padding-top: 80px;
+    padding-top: 10px;
     width: 100%;
     height: 100%;
 }

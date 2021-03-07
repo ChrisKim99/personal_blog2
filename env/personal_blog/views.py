@@ -1,96 +1,87 @@
-# Create your views here.
 from django.shortcuts import render
-from django.http import HttpResponse
-from .models import track_of_mind, book, data_structure, data_analytic, Post
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from .models import Post, Category
+from django.urls import reverse_lazy
+from .forms import PostForm, EditForm
 # ListView, DetailView takes query and return data
 # ListView returns multiple data, DetailView return one block of data
 
 
 # instead of retireving request, we use ListView
-class home_list_view(ListView):
-    model = Post
-    template_name = "home.html"
+
+
 
 # Create your views here.
 
 # request has the value passed from clients
 # as specified in the seetings of main, the function will render pages from the templates
 # can return some value {"name": "value to return"}
-    
-    #collect_books = book.objects.all()
-    #collect_minds = track_of_mind.objects.all()
-    #collect_strucs = data_structure.objects.all()
-    #collect_analytics = data_analytic.objects.all()
-#
-    #total_list = [collect_books, collect_minds, collect_strucs, collect_analytics]
-#
-    #all_items = {"books": collect_books, "track_of_minds": collect_minds, "data_structures": collect_strucs, "data_analytics": collect_analytics, "total_list": total_list}
+
+class home_view(ListView):
+    model = Post
+    template_name = 'home.html'
+
+    # ordering = ['-id'] -- this will reverse order 
+    # this will be used for recent update
+    ordering = ['-date']
+
+    # this will be updated for context processor
+    def get_context_data(self, *args, **kwargs):
+        cat_menu = Category.objects.all()
+        context = super(home_view, self).get_context_data(*args, **kwargs)
+        context["cat_menu"] = cat_menu
+        return context
+
+def category_view(request, cats):
+
+    category_posts = Post.objects.filter(category=cats.replace('-'," "))
 
 
-def select_track_of_mind(request):
-    
-    #title = request.GET.get("title_name")
-#
-    #collect_books = book.objects.all()
-    #collect_minds = track_of_mind.objects.all()
-    #collect_strucs = data_structure.objects.all()
-    #collect_analytics = data_analytic.objects.all()
-#
-    #selected_item = track_of_mind.objects.get(title=title)
-#
-    #all_items = {"books": collect_books, "track_of_minds": collect_minds, "data_structures": collect_strucs, "data_analytics": collect_analytics, "item": selected_item}
-    
-    return render(request, 'home.html')
+    return render(request, 'categories.html', {'cats':cats.replace('-'," ").title() ,'category_posts':category_posts})
 
-class select_book_detail_view(DetailView):
+class article_view(DetailView):
+    model = Post
+
+    template_name = 'article.html'
+
+    def get_context_data(self, *args, **kwargs):
+        cat_menu = Category.objects.all()
+        context = super(article_view, self).get_context_data(*args, **kwargs)
+        context["cat_menu"] = cat_menu
+        return context
+
+
+class add_post_view(CreateView):
 
     model = Post
-    template_name = "book.html"
-
-
-
-    #title = request.GET.get("title_name")
-#
-    #collect_books = book.objects.all()
-    #collect_minds = track_of_mind.objects.all()
-    #collect_strucs = data_structure.objects.all()
-    #collect_analytics = data_analytic.objects.all()
-#
-    #selected_item = book.objects.get(title=title)
-#
-    #all_items = {"books": collect_books, "track_of_minds": collect_minds, "data_structures": collect_strucs, "data_analytics": collect_analytics, "item": selected_item}
     
-    #return render(request, 'home.html')
+    # this specifies which fields we want
+    form_class = PostForm
+    template_name = 'add_post.html'
 
+    #fields = '__all__'
+    #fields = ('title','author','body')
 
+class add_category_view(CreateView):
 
-def select_data_structure(request):
-   
-    #title = request.GET.get("title_name")
-#
-    #collect_books = book.objects.all()
-    #collect_minds = track_of_mind.objects.all()
-    #collect_strucs = data_structure.objects.all()
-    #collect_analytics = data_analytic.objects.all()
-#
-    #selected_item = data_structure.objects.get(title=title)
-#
-    #all_items = {"books": collect_books, "track_of_minds": collect_minds, "data_structures": collect_strucs, "data_analytics": collect_analytics, "item": selected_item}
+    model = Category
     
-    return render(request, 'home.html')
+    template_name = 'add_category.html'
 
-def select_data_analytic(request):
-    
-    #title = request.GET.get("title_name")
-#
-    #collect_books = book.objects.all()
-    #collect_minds = track_of_mind.objects.all()
-    #collect_strucs = data_structure.objects.all()
-    #collect_analytics = data_analytic.objects.all()
-#
-    #selected_item = data_analytic.objects.get(title=title)
-#
-    #all_items = {"books": collect_books, "track_of_minds": collect_minds, "data_structures": collect_strucs, "data_analytics": collect_analytics, "item": selected_item}
-    
-    return render(request, 'home.html')
+    fields = '__all__'
+    #fields = ('title','author','body')
+
+class update_post_view(UpdateView):
+
+    model = Post
+    form_class = EditForm
+    template_name = 'update_post.html'
+    #fields = ['title','body']
+
+class delete_post_view(DeleteView):
+    model = Post
+
+    template_name = 'delete_post.html'
+
+    # because deleteview doesnt redirect from the models, we have to specify it here
+    success_url = reverse_lazy('home')
