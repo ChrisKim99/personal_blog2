@@ -1,18 +1,10 @@
 from django.contrib import admin
-from .models import track_of_mind, book, data_analytic, data_structure, post
+from .models import Post, Category
 
 # Register your models here.
 
 
-admin.site.register(track_of_mind)
-
-admin.site.register(book)
-
-
-admin.site.register(post)
-
+admin.site.register(Post)
+admin.site.register(Category)
 # ---------------- register for data related items-------------------
 
-admin.site.register(data_structure)
-
-admin.site.register(data_analytic)

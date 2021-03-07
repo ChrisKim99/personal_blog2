@@ -26,6 +26,7 @@ class home_view(ListView):
     ordering = ['-date']
 
     # this will be updated for context processor
+
     def get_context_data(self, *args, **kwargs):
         cat_menu = Category.objects.all()
         context = super(home_view, self).get_context_data(*args, **kwargs)
