@@ -1,0 +1,17 @@
+
+
+
+
+<h1>Log In</h1>
+
+<form method="POST">
+    <table>
+        {% csrf_token %}
+        <!-- Here you have to use form specifically-->
+        <!-- Also, you can change formatting like form.table-->
+        
+        {{ form.as_table }}
+
+    </table>
+    <button>Log In</button>
+</form>

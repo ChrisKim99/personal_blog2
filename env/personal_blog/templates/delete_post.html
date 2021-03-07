@@ -1,0 +1,24 @@
+{% extends 'home.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<h1>Delete Post</h1>
+
+<h3>Delete: {{ post.title }} </h3>
+
+<form method="POST">
+    
+    <table>
+        {% csrf_token %}
+        <!-- Here you have to use form specifically-->
+        <!-- Also, you can change formatting like form.table-->
+        
+        <strong>Are you sure?</strong>
+
+    </table>
+    <button>Delete</button>
+</form>
+
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'home.html' %}
+
+{% load static %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+<h1>Add Post</h1>
+
+<div class="form-group">
+<form method="POST">
+    <table>
+        {% csrf_token %}
+        <!-- Here you have to use form specifically-->
+        <!-- Also, you can change formatting like form.table-->
+        
+        {{ form.as_p }}
+
+    </table>
+    <button>Post</button>
+</form>
+</div> 
+
+{% endif %}
+
+{% endblock %}

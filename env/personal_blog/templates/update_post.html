@@ -1,0 +1,25 @@
+{% extends 'home.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<h1>Update Post</h1>
+
+
+<div class="form-group">
+<form method="POST">
+    
+    <table>
+        {% csrf_token %}
+        <!-- Here you have to use form specifically-->
+        <!-- Also, you can change formatting like form.table-->
+        
+        {{ form.as_p }}
+
+    </table>
+    <button>Update</button>
+</form>
+</div>
+
+{% endblock %}
